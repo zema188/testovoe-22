@@ -1,0 +1,37 @@
+@import './base.css';
+
+.label {
+    font-weight: bold;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: .2s;
+    &_green {
+        background: #71ed8f;
+        color: #fff;
+        &:hover {
+            background: #5dcc79;
+        }
+        &:active {
+            background: #50af68;
+        }
+    }
+    &_grey {
+        background: #859288;
+        color: #fff;
+        &:hover {
+            background: #6f7571;
+        }
+        &:active {
+            background: #585858;
+        }
+    }
+}
