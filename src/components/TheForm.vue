@@ -80,6 +80,11 @@ export default {
         formIndex: {
             type: Number,
             required: true
+        },
+
+        formName: {
+            type: String,
+            required: true
         }
     },
 
@@ -92,45 +97,33 @@ export default {
     methods: {
 
         async onSubmit(event) {
+            event.preventDefault();
+
             const formData = new FormData(event.target);
 
+            const childData = {
+                name: formData.get('name'),
+                gender: formData.get('gender'),
+                age: parseInt(formData.get('age')),
+                pass: formData.get('pass')
+            };
 
-            let pass = null;
-            let repeatPass = null;
-
-            for (const [name, value] of formData) {
-
-                if(pass && repeatPass) return;
-
-                if (name === 'pass') {
-                    pass = value;
-                }
-                if (name === 'repeat-pass') {
-                    repeatPass = value;
-                }
-            }
-
-            if(pass !== repeatPass) {
-                console.log('Пароли не совпадают')
-                this.errorPasswords = true;
-                return
-            } else {
-                this.errorPasswords = false;
-            }
-
-            formData.delete('repeat-pass');
+            const jsonData = JSON.stringify({ [this.formName]: childData });
 
             try {
-                
                 const response = await fetch('test/api/form', {
                     method: 'POST',
-                    body: formData,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData,
                 });
 
             } catch(err) {
                 console.error('Ошибка загрузки отправки формы', err);
             }
         },
+
 
         resetForm(event) {
             event.target.reset();

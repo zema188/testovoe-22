@@ -3,6 +3,7 @@
     <the-form
       v-for="(form, key, i) of config" :key="i"
       :form="form"
+      :formName="key"
       :formIndex="i"
     />
   </div>
